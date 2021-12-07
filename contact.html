@@ -26,6 +26,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <div class="dropdown">
+                          <span>Mouse over me</span>
+                          <div class="dropdown-content">
+                            <p>Hello World!
+                              <div class="dropdown">
+                                <span>Mouse over me</span>
+                                <div class="dropdown-content">
+                              </div>
+                              </div>
+                              
+                            </p>
+
+                            <p>Hello World!</p>
+                            <p>Hello World!</p>
+                            <p>Hello World!</p>
+                          </div>
+                        </div>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
@@ -153,4 +170,26 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+
+    <style>
+      .dropdown {
+        position: relative;
+        display: inline-block;
+        background-color: #2bba4f;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #d6e3d9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+      }
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+    </style>
 </html>
