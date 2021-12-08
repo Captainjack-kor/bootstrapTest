@@ -11,8 +11,8 @@ let arr = {
   postContents: ["123", "hi", "aaa", "cc", "bb", "ee", "gg", "124", "7766", "325", "asdadsa"],
 };
 
-let maxPage = Math.ceil(arr.idx.length / 5);
-// 애초에 올 때 부터 짤라야 하나
+
+
 
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
 console.log(boardCount);
@@ -47,7 +47,7 @@ function pageAlgo(total, bottomSize, listSize, cursor ){
 
 //280개의 데이터, 하단에는 20개씩, 1개화면에는 10개, 지금 나의페이지는 21
 let info = pageAlgo(boardCount, 5, 5, 11);
-console.log(info);
+// console.log(info);
 
 // var element  = document.getElementById('tr'); // assuming ul exists
 // var fragment = document.createDocumentFragment();
@@ -67,50 +67,31 @@ let lastMoveBtn = document.createElement('button');
 lastMoveBtn.textContent = ">>";
 
 let pagingArr = [];
-let pageNum = 0;
+let check = 1;
 
 pageBtn.append(firstMoveBtn);
 pageBtn.append(leftMoveBtn);
 
-arr.idx.forEach((el, idx) => {
-  var trTest = document.createElement('tr');
-  var tdNum = document.createElement('td');
-  var tdContents = document.createElement('td');
-  var tdTitle = document.createElement('td');
-  
-  if(idx % 5 === 0) {
-    var pBtn = document.createElement('button');
-    pBtn.className = 'buttonGap'; //^^;;
-    // let buttonGubun = document.getElementsByClassName('buttonGap')[1];
-    // pBtn.onclick =  test;
-    pBtn.classList.add('buttonClick');
-    pageNum++;
-    pBtn.classList.add(`button${pageNum}`);
-    pBtn.textContent = pageNum;
-    pageBtn.append(pBtn);
-  }
-  
-  tdNum.textContent = el;
-  tdContents.textContent = arr.postTitle[idx];
-  tdTitle.textContent = arr.postContents[idx];
-
-  trTest.append(tdNum);
-  trTest.append(tdContents);
-  trTest.append(tdTitle);
-
-  // pagingArr.fillter((el) => {
-  // pagingArr.push([])
-  // if(idx >= 5) {
-    appendTest.append(trTest);
-  // }
-  // });
-})
-
-pageBtn.append(rightMoveBtn);
-pageBtn.append(lastMoveBtn);
+let pageNum = 0;
+let maxPage = Math.ceil(arr.idx.length / 5);
+// 애초에 올 때 부터 짤라야 하나
+while(maxPage > pageNum) {
+  var pBtn = document.createElement('button');
+  pBtn.className = 'buttonGap'; //^^;;
+  // let buttonGubun = document.getElementsByClassName('buttonGap')[1];
+  // pBtn.onclick =  test;
+  // pBtn.classList.add('buttonClick');
+  pageNum++;
+  pBtn.classList.add(`button${pageNum}`);
+  pBtn.textContent = pageNum;
+  pageBtn.append(pBtn);
+}
 
 document.getElementsByClassName('button1')[0].addEventListener("click", function(){
-  console.log("1번")
+  console.log("1번");
+
+  // arr.idx = arr.idx.slice(0, 4);
+  // console.log(arr.idx);
 });
 
 document.getElementsByClassName('button2')[0].addEventListener("click", function(){
@@ -121,25 +102,36 @@ document.getElementsByClassName('button3')[0].addEventListener("click", function
   console.log("3번")
 });
 
-function test() {
-  // console.log(ee);
-  event.preventDefault();
+arr.idx.forEach((el, idx) => {
+  var trTest = document.createElement('tr');
+  var tdNum = document.createElement('td');
+  var tdContents = document.createElement('td');
+  var tdTitle = document.createElement('td');
+
+  tdNum.textContent = el;
+  tdContents.textContent = arr.postTitle[idx];
+  tdTitle.textContent = arr.postContents[idx];
+
+  trTest.append(tdNum);
+  trTest.append(tdContents);
+  trTest.append(tdTitle);
+
+  // pagingArr.fillter((el) => {
+  // pagingArr.push([])
+  if(idx <= 4) {
+    appendTest.append(trTest);
+  }
+  // });
+  document.getElementsByClassName('button1')[0].addEventListener("click", function(){
+    console.log("1번");
   
-  // console.log("hi");
-
-  // document.getElementsByClassName('button1').addEventListener = function a() {
-  //   console.log(('1번'));
-  // }
-
-  // document.getElementsByClassName('button2').onclick = function b() {
-  //   console.log(('2번'));
-  // };
+  });
   
-  // document.getElementsByClassName('button3').onclick = function c() {
-  //   console.log(('3번'));
-  // };
-}
+  
+})
 
+pageBtn.append(rightMoveBtn);
+pageBtn.append(lastMoveBtn);
 
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
