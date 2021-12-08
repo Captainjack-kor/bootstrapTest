@@ -4,7 +4,6 @@
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
 */
 
-
 let text = "link move test";
 let arr = {
   idx: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
@@ -12,6 +11,7 @@ let arr = {
   postContents: ["123", "hi", "aaa", "cc", "bb", "ee", "gg", "124", "7766", "325", "asdadsa"],
 };
 
+let maxPage = Math.ceil(arr.idx.length / 5);
 // 애초에 올 때 부터 짤라야 하나
 
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
@@ -57,8 +57,6 @@ let appendTest = document.getElementsByClassName('lastName')[0];
 var trTest = document.createElement('tr');
 
 let pageBtn = document.getElementsByClassName('pageBtn')[0];
-let pageNum = 0;
-
 let firstMoveBtn = document.createElement('button');
 firstMoveBtn.textContent = "<<";
 let leftMoveBtn = document.createElement('button');
@@ -68,10 +66,11 @@ rightMoveBtn.textContent = ">";
 let lastMoveBtn = document.createElement('button');
 lastMoveBtn.textContent = ">>";
 
+let pagingArr = [];
+let pageNum = 0;
+
 pageBtn.append(firstMoveBtn);
 pageBtn.append(leftMoveBtn);
-
-let pagingArr = [];
 
 arr.idx.forEach((el, idx) => {
   var trTest = document.createElement('tr');
@@ -79,54 +78,68 @@ arr.idx.forEach((el, idx) => {
   var tdContents = document.createElement('td');
   var tdTitle = document.createElement('td');
   
-  pagingArr.push(el , arr.postTitle[idx],  arr.postContents[idx]);
-  if(idx % 5 === 0) { //버튼 갯수를 결정
+  if(idx % 5 === 0) {
     var pBtn = document.createElement('button');
     pBtn.className = 'buttonGap'; //^^;;
-    pBtn.onclick = function(){
-      
-    };
-    // pBtn.className = 'buttonClick'; //^^;;
+    // let buttonGubun = document.getElementsByClassName('buttonGap')[1];
+    // pBtn.onclick =  test;
     pBtn.classList.add('buttonClick');
     pageNum++;
+    pBtn.classList.add(`button${pageNum}`);
     pBtn.textContent = pageNum;
     pageBtn.append(pBtn);
   }
-
+  
   tdNum.textContent = el;
   tdContents.textContent = arr.postTitle[idx];
   tdTitle.textContent = arr.postContents[idx];
 
-  // fragment.appendChild(td);
-  trTest.append(tdNum);
-  trTest.append(tdContents);
-  trTest.append(tdTitle);
-  appendTest.append(trTest);
-
-  // tdNum.textContent = el;
-  // tdContents.textContent = arr.postTitle[idx];
-  // tdTitle.textContent = arr.postContents[idx];
-
-  // fragment.appendChild(td);
   trTest.append(tdNum);
   trTest.append(tdContents);
   trTest.append(tdTitle);
 
-  appendTest.append(trTest);
-  
+  // pagingArr.fillter((el) => {
+  // pagingArr.push([])
+  // if(idx >= 5) {
+    appendTest.append(trTest);
+  // }
+  // });
 })
 
 pageBtn.append(rightMoveBtn);
 pageBtn.append(lastMoveBtn);
 
+document.getElementsByClassName('button1')[0].addEventListener("click", function(){
+  console.log("1번")
+});
 
-console.log(pagingArr);
+document.getElementsByClassName('button2')[0].addEventListener("click", function(){
+  console.log("2번")
+});
 
+document.getElementsByClassName('button3')[0].addEventListener("click", function(){
+  console.log("3번")
+});
 
+function test() {
+  // console.log(ee);
+  event.preventDefault();
+  
+  // console.log("hi");
 
-// if(boardCount % 5)
+  // document.getElementsByClassName('button1').addEventListener = function a() {
+  //   console.log(('1번'));
+  // }
 
-// element.appendChild(fragment);
+  // document.getElementsByClassName('button2').onclick = function b() {
+  //   console.log(('2번'));
+  // };
+  
+  // document.getElementsByClassName('button3').onclick = function c() {
+  //   console.log(('3번'));
+  // };
+}
+
 
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
