@@ -18,8 +18,8 @@ for(let i = 1; i < _page; i++) {
   arr.push([
     {
       idx: `${i}`,
-      postTitle: "우왕 ㅋ굳ㅋ",
-      postContents: "123",
+      postTitle: "타이틀",
+      postContents: "내용",
     }
   ])
 }
@@ -81,6 +81,8 @@ let appendTest = document.getElementsByClassName('lastName')[0];
 var trTest = document.createElement('tr');
 
 let pageBtn = document.getElementsByClassName('pageBtn')[0];
+let pageBtnLArrow = document.getElementsByClassName('pageBtnLArrow')[0];
+let pageBtnRArrow = document.getElementsByClassName('pageBtnRArrow')[0];
 let firstMoveBtn = document.createElement('button');
 firstMoveBtn.textContent = "<<";
 firstMoveBtn.onclick =  test;
@@ -106,36 +108,91 @@ let check = 1;
 
 //! button 출력 부분
 
-pageBtn.append(firstMoveBtn);
-pageBtn.append(leftMoveBtn);
+pageBtnLArrow.append(firstMoveBtn);
+pageBtnLArrow.append(leftMoveBtn);
 
 let pageNum = 0;
-console.log("🚀 maxPage", maxPage);
-
 let buttonArr = [];
 
-
-
 while(superArr.length > pageNum) {
-  var pBtn = document.createElement('button');
-  pBtn.className = 'buttonGap'; //^^;;
-  pageNum++;
-  pBtn.classList.add(`button${pageNum}`);
-  pBtn.textContent = pageNum;
-  pageBtn.append(pBtn);
+  // if(pageNum % displayButtonNum !== 0) { 
+  // for(let i = 0; i < displayButtonNum; i++) {
+      var pBtn = document.createElement('button');
+      pBtn.className = 'buttonGap'; //^^;;
+      pageNum++;
+      pBtn.classList.add(`button${pageNum}`);
+      pBtn.textContent = pageNum;
+
+      pageBtn.append(pBtn);
+    
+  // }
 }
+  const removeAll_button = document.getElementsByClassName('buttonGap');
+  // removeAll_button.forEach(function(el){
+  //   el.remove();
+  // })
+
+  let tempArr = [];
+  for(let i = 0; i <removeAll_button.length; i++) {
+    tempArr.push(removeAll_button[i]);
+  }
+  let newArr = [];
+  while(tempArr.length > 0) {
+    let head = tempArr.shift();
+    if(newArr.length !== displayButtonNum) {
+      newArr.push(head);
+      if(tempArr.length === 0) {
+        buttonArr.push(newArr);
+      }
+    } else {
+      buttonArr.push(newArr);
+      newArr = [];
+    }
+  }
+  console.log(buttonArr); 
+
+// console.log(tempArr);
+
+function paging_button_gubun(nowPage) {
+  if(nowPage <= 5) {
+    console.log("5보다 작음");
+    const removeAll_button = document.getElementsByClassName('buttonGap');
+    let tempArr = [];
+    for(let i = 0; i <removeAll_button.length; i++) {
+      tempArr.push(removeAll_button[i]);
+    }
+    console.log(tempArr);
+    tempArr.forEach(function(el){
+      el.remove();
+    })
+
+    for(let i = 0; i < displayButtonNum; i++) {
+      pageBtn.append(buttonArr[0][i]);
+    }
+  } else {
+
+    console.log("5보다 작음");
+    const removeAll_button = document.getElementsByClassName('buttonGap');
+    let tempArr = [];
+    for(let i = 0; i <removeAll_button.length; i++) {
+      tempArr.push(removeAll_button[i]);
+    }
+    console.log(tempArr);
+    tempArr.forEach(function(el){
+      el.remove();
+    })
+
+    for(let i = 0; i < 2; i++) {
+      pageBtn.append(buttonArr[1][i]);
+    }
+  }
+}
+
+pageBtnRArrow.append(rightMoveBtn);
+pageBtnRArrow.append(lastMoveBtn);
+
 /*
-* 일단 버튼 Arr에 8개는 들어온다.
-* 첫 화면에 5개 이하일시 그 갯수가 그냥 뿌려줘야 한다.
-* "다음" 버튼을 눌러서 현재 페에지가 6이상이 되면 다음 리스트 5개를 뿌려준다(적으면 적은대로)
-*/
-
-//* 이것도 그냥 기존 배열 다 지우고 다시 뿌려야 할듯?
-// const removeAll_td = document.querySelectorAll('td'); 
-
-pageBtn.append(rightMoveBtn);
-pageBtn.append(lastMoveBtn);
-
+* 삭제하는 부분
 const removeAll_button = document.getElementsByClassName('buttonGap');
 let tempArr = [];
 for(let i = 0; i <removeAll_button.length; i++) {
@@ -145,7 +202,7 @@ console.log(tempArr);
 tempArr.forEach(function(el){
   el.remove();
 })
-
+*/
 
 superArr[0].idx.forEach((el, idx) => {
   var trTest = document.createElement('tr');
@@ -171,6 +228,7 @@ for(let i = 0; i <= maxPage; i++) {
     console.log(`${i + 1}번 클릭`);
     nowPage = i + 1;
     console.log(nowPage);
+    paging_button_gubun(nowPage);
     const removeAll_td = document.querySelectorAll('td'); 
     removeAll_td.forEach(function(el){
       el.remove();
@@ -219,6 +277,8 @@ function test() {
   
   })
   nowPage = 1;
+  paging_button_gubun(nowPage);
+
   console.log(nowPage);
 }
 
@@ -228,6 +288,7 @@ function test2() {
   removeAll_td.forEach(function(el){
     el.remove();
   })
+
   superArr[superArr.length - 1].idx.forEach((el, idx) => {
     var trTest = document.createElement('tr');
     var tdNum = document.createElement('td');
@@ -246,10 +307,11 @@ function test2() {
   
   })
   nowPage = superArr.length - 1;
+  paging_button_gubun(nowPage);
+
   console.log(nowPage);
 
 }
-
 
 function left() {
   console.log("left");
@@ -260,6 +322,7 @@ function left() {
   }
 
   console.log(nowPage);
+  paging_button_gubun(nowPage);
 
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
@@ -287,7 +350,6 @@ function left() {
 
 function right() {
   console.log("right");
-
   if(nowPage >= superArr.length - 1) {
     nowPage = superArr.length;
     // console.log(nowPage)
@@ -296,6 +358,8 @@ function right() {
   }
 
   console.log(nowPage);
+
+  paging_button_gubun(nowPage);
 
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){

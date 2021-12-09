@@ -8,12 +8,33 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
   <title>Document</title>
 <style>
+
+  .button_position {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .pageBtnLArrow {
+    margin-right: 10px;
+  }
+
+  .pageBtnRArrow  {
+    margin-left: 10px;
+  }
+
+
+  .buttonGap {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   .buttonClick {
     /* background-color: red; */
   }
-  .buttonGap {
+  .buttonGap .button_position {
     /* background-color: red; */
-    margin: 10px 10px;
+    /* margin: 10px 10px; */
   }
   .testLink {
     /* background-color: rgb(97, 55, 55); */
@@ -58,8 +79,10 @@
       <tbody class="lastName">
       </tbody>
     </table>
-    <div class="pageBtn" style="text-align: center;">
-      
+    <div class="button_position" style="text-align: center;">
+      <div class="pageBtnLArrow" > </div>
+      <div class="pageBtn"> </div>
+      <div class="pageBtnRArrow"> </div>
     </div>
   </div>
   <div class="mainTitle">
