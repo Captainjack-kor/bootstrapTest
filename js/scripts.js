@@ -85,7 +85,7 @@ let pageBtnLArrow = document.getElementsByClassName('pageBtnLArrow')[0];
 let pageBtnRArrow = document.getElementsByClassName('pageBtnRArrow')[0];
 let firstMoveBtn = document.createElement('button');
 firstMoveBtn.textContent = "<<";
-firstMoveBtn.onclick =  test;
+firstMoveBtn.onclick =  firstMV;
 firstMoveBtn.className = 'firstMoveBtn';
 
 let leftMoveBtn = document.createElement('button');
@@ -100,7 +100,7 @@ rightMoveBtn.className = "right";
 
 let lastMoveBtn = document.createElement('button');
 lastMoveBtn.textContent = ">>";
-lastMoveBtn.onclick = test2;
+lastMoveBtn.onclick = lastMV;
 lastMoveBtn.className = 'lastMoveBtn';
 
 let pagingArr = [];
@@ -122,8 +122,11 @@ while(superArr.length > pageNum) {
       pageNum++;
       pBtn.classList.add(`button${pageNum}`);
       pBtn.textContent = pageNum;
+      // if(pageNum <= 5) {
 
       pageBtn.append(pBtn);
+        // paging_button_gubun(nowPage);
+      // }
     
   // }
 }
@@ -253,7 +256,7 @@ for(let i = 0; i <= maxPage; i++) {
   });
 }
 
-function test() {
+function firstMV() {
   console.log("처음으로 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
@@ -282,7 +285,7 @@ function test() {
   console.log(nowPage);
 }
 
-function test2() {
+function lastMV() {
   console.log("마지막 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
