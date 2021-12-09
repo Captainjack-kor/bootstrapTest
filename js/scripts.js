@@ -34,11 +34,6 @@ let nowPage = 0;
 
 document.getElementsByClassName('mainTitle')[0].innerText = text;
 
-for(let i = 1; i < _page; i++) {
-  // console.log(i);
-  // console.log(arr[i][0]["idx"]);
-} //* 12개 확인 완료
-
 // for(let i = 0; i < Math.ceil(arr.idx.length / 5); i++) {
 
 arr.shift(); //초기 하나 뺴주기
@@ -52,12 +47,12 @@ let obj = {
   postContents: [],
 }
 
-let displayBoard = 10;
-let maxPage = Math.ceil(_page / 5);
+let displayBoardNum = 10; //! 한 화면에 보여주는 게시글 갯수
+let displayButtonNum = 5; //! 한 화면에 보여주는 하단 버튼의 갯수
+let maxPage = Math.ceil(_page / 5); 
 
 while(arr.length > 0) {  
-  //! 한 화면에 보여주는 갯수 "j"  
-  for(let j = 0; j < displayBoard; j++) {
+  for(let j = 0; j < displayBoardNum; j++) {
     if(arr.length !== 0) {
       arrEl = arr.shift(); // 5번 빠진걸
 
@@ -117,6 +112,10 @@ pageBtn.append(leftMoveBtn);
 let pageNum = 0;
 console.log("🚀 maxPage", maxPage);
 
+let buttonArr = [];
+
+
+
 while(superArr.length > pageNum) {
   var pBtn = document.createElement('button');
   pBtn.className = 'buttonGap'; //^^;;
@@ -125,9 +124,28 @@ while(superArr.length > pageNum) {
   pBtn.textContent = pageNum;
   pageBtn.append(pBtn);
 }
+/*
+* 일단 버튼 Arr에 8개는 들어온다.
+* 첫 화면에 5개 이하일시 그 갯수가 그냥 뿌려줘야 한다.
+* "다음" 버튼을 눌러서 현재 페에지가 6이상이 되면 다음 리스트 5개를 뿌려준다(적으면 적은대로)
+*/
+
+//* 이것도 그냥 기존 배열 다 지우고 다시 뿌려야 할듯?
+// const removeAll_td = document.querySelectorAll('td'); 
 
 pageBtn.append(rightMoveBtn);
 pageBtn.append(lastMoveBtn);
+
+const removeAll_button = document.getElementsByClassName('buttonGap');
+let tempArr = [];
+for(let i = 0; i <removeAll_button.length; i++) {
+  tempArr.push(removeAll_button[i]);
+}
+console.log(tempArr);
+tempArr.forEach(function(el){
+  el.remove();
+})
+
 
 superArr[0].idx.forEach((el, idx) => {
   var trTest = document.createElement('tr');
@@ -178,7 +196,7 @@ for(let i = 0; i <= maxPage; i++) {
 }
 
 function test() {
-  console.log("hihi");
+  console.log("처음으로 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -201,10 +219,11 @@ function test() {
   
   })
   nowPage = 1;
+  console.log(nowPage);
 }
 
 function test2() {
-  console.log("hihi2");
+  console.log("마지막 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -227,6 +246,8 @@ function test2() {
   
   })
   nowPage = superArr.length - 1;
+  console.log(nowPage);
+
 }
 
 
@@ -244,6 +265,7 @@ function left() {
   removeAll_td.forEach(function(el){
     el.remove();
   })
+
   superArr[nowPage - 1].idx.forEach((el, idx) => {
     var trTest = document.createElement('tr');
     var tdNum = document.createElement('td');
