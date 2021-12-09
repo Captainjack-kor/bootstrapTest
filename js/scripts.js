@@ -14,7 +14,7 @@ let arr = {
 //버튼에 따른 필터 뿌리기... 내일 해보자
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
 console.log(boardCount);
-
+let nowPage = 0;
 document.getElementsByClassName('mainTitle')[0].innerText = text;
 
 
@@ -89,12 +89,23 @@ var trTest = document.createElement('tr');
 let pageBtn = document.getElementsByClassName('pageBtn')[0];
 let firstMoveBtn = document.createElement('button');
 firstMoveBtn.textContent = "<<";
+firstMoveBtn.onclick =  test;
+firstMoveBtn.className = 'firstMoveBtn';
+
 let leftMoveBtn = document.createElement('button');
 leftMoveBtn.textContent = "<";
+leftMoveBtn.onclick = left;
+leftMoveBtn.className = 'left';
+
 let rightMoveBtn = document.createElement('button');
 rightMoveBtn.textContent = ">";
+rightMoveBtn.onclick = right;
+rightMoveBtn.className = "right";
+
 let lastMoveBtn = document.createElement('button');
 lastMoveBtn.textContent = ">>";
+lastMoveBtn.onclick = test2;
+lastMoveBtn.className = 'lastMoveBtn';
 
 let pagingArr = [];
 let check = 1;
@@ -140,23 +151,15 @@ superArr[0].idx.forEach((el, idx) => {
 })
 
 for(let i = 0; i <= 3; i++) {
-  console.log(i);
+  // console.log(i);
   document.getElementsByClassName(`button${i + 1}`)[0].addEventListener("click", function(){
     console.log(`${i + 1}번 클릭 @@`);
-
-
+    nowPage = i + 1;
+    console.log(nowPage);
     const removeAll_td = document.querySelectorAll('td'); 
-    // const removeAll_tr = document.querySelectorAll('tr'); 
-    
     removeAll_td.forEach(function(el){
       el.remove();
     })
-
-    // removeAll_tr.forEach(function(el){
-    //   el.remove();
-    // })
-
-
     superArr[i].idx.forEach((el, idx) => {
       var trTest = document.createElement('tr');
       var tdNum = document.createElement('td');
@@ -177,6 +180,139 @@ for(let i = 0; i <= 3; i++) {
   });
 }
 
+function test() {
+  console.log("hihi");
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+  superArr[0].idx.forEach((el, idx) => {
+    var trTest = document.createElement('tr');
+    var tdNum = document.createElement('td');
+    var tdContents = document.createElement('td');
+    var tdTitle = document.createElement('td');
+  
+    tdNum.textContent = el;
+    tdContents.textContent = superArr[0].postTitle[idx];
+    tdTitle.textContent = superArr[0].postContents[idx];
+  
+    trTest.append(tdNum);
+    trTest.append(tdContents);
+    trTest.append(tdTitle);
+  
+    appendTest.append(trTest);
+  
+  })
+  nowPage = 1;
+}
+
+function test2() {
+  console.log("hihi2");
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+  superArr[superArr.length - 1].idx.forEach((el, idx) => {
+    var trTest = document.createElement('tr');
+    var tdNum = document.createElement('td');
+    var tdContents = document.createElement('td');
+    var tdTitle = document.createElement('td');
+  
+    tdNum.textContent = el;
+    tdContents.textContent = superArr[superArr.length - 1].postTitle[idx];
+    tdTitle.textContent = superArr[superArr.length - 1].postContents[idx];
+  
+    trTest.append(tdNum);
+    trTest.append(tdContents);
+    trTest.append(tdTitle);
+  
+    appendTest.append(trTest);
+  
+  })
+  nowPage = superArr.length - 1;
+}
+
+
+function left() {
+  console.log("left");
+  console.log(nowPage);
+  if(nowPage <= 1) {
+    nowPage = 1;
+  } else {
+    nowPage--;
+  }
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+  superArr[nowPage - 1].idx.forEach((el, idx) => {
+    var trTest = document.createElement('tr');
+    var tdNum = document.createElement('td');
+    var tdContents = document.createElement('td');
+    var tdTitle = document.createElement('td');
+  
+    tdNum.textContent = el;
+    tdContents.textContent = superArr[nowPage - 1].postTitle[idx];
+    tdTitle.textContent = superArr[nowPage - 1].postContents[idx];
+  
+    trTest.append(tdNum);
+    trTest.append(tdContents);
+    trTest.append(tdTitle);
+  
+    appendTest.append(trTest);
+  
+  })
+}
+
+function right() {
+  console.log("right");
+  console.log(nowPage);
+
+  if(nowPage >= superArr.length - 1) {
+    nowPage = superArr.length;
+    // console.log(nowPage)
+  } else {
+    nowPage++;
+  }
+
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+  superArr[nowPage - 1].idx.forEach((el, idx) => {
+    var trTest = document.createElement('tr');
+    var tdNum = document.createElement('td');
+    var tdContents = document.createElement('td');
+    var tdTitle = document.createElement('td');
+  
+    tdNum.textContent = el;
+    tdContents.textContent = superArr[nowPage - 1].postTitle[idx];
+    tdTitle.textContent = superArr[nowPage - 1].postContents[idx];
+  
+    trTest.append(tdNum);
+    trTest.append(tdContents);
+    trTest.append(tdTitle);
+  
+    appendTest.append(trTest);
+  
+  })
+}
+
+document.getElementsByClassName('firstMoveBtn')[0].addEventListener("click", function(){
+  console.log("click f");
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+})
+
+document.getElementsByClassName('lastMoveBtn')[0].addEventListener("click", function(){
+  console.log("click l");
+  const removeAll_td = document.querySelectorAll('td'); 
+  removeAll_td.forEach(function(el){
+    el.remove();
+  })
+})
 
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
