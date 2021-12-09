@@ -5,6 +5,7 @@
 */
 
 let text = "link move test";
+let _page = 80;
 let arr = [
   {
     idx: "",
@@ -13,7 +14,7 @@ let arr = [
   }
 ]
 
-for(let i = 1; i < 10; i++) {
+for(let i = 1; i < _page; i++) {
   arr.push([
     {
       idx: `${i}`,
@@ -23,96 +24,63 @@ for(let i = 1; i < 10; i++) {
   ])
 }
 
-console.log(arr);
-// console.log(arr.length);
-
-// let arr = {
-//   idx: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
-//   postTitle: ["우왕 ㅋ굳ㅋ", "오징어게임", "안녕", "하이염", "방가방가", "텡", "탕탕탕", "탕탕", "apfjd", "hq", "ggg", "텡", "탕탕탕", "탕탕", "apfjd", "hq", "ggg",  "apfjd", "hq", "ggg"],
-//   postContents: ["123", "hi", "aaa", "cc", "bb", "ee", "gg", "124", "7766", "325", "asdadsa"],
-// };
+// console.log(arr);
 
 //버튼에 따른 필터 뿌리기... 내일 해보자
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
 console.log(boardCount);
+
 let nowPage = 0;
+
 document.getElementsByClassName('mainTitle')[0].innerText = text;
 
+for(let i = 1; i < _page; i++) {
+  // console.log(i);
+  // console.log(arr[i][0]["idx"]);
+} //* 12개 확인 완료
+
+// for(let i = 0; i < Math.ceil(arr.idx.length / 5); i++) {
+
+arr.shift(); //초기 하나 뺴주기
+
+let superArr = [];
+let arrEl = "";
 
 let obj = {
   idx: [],
   postTitle: [],
   postContents: [],
-};
+}
 
+let displayBoard = 10;
+let maxPage = Math.ceil(_page / 5);
 
-// let arr = [
-//   {
-//     idx: "",
-//     postTitle: "",
-//     postContents: "",
-//   }
-// ]
-
-
-// for(let i = 1; i < 10; i++) {
-//   // console.log(i);
-//   console.log(arr[i][0]["idx"]);
-// }
-
-
-// for(let i = 0; i < Math.ceil(arr.idx.length / 5); i++) {
-// while(arr.length > 0) {  
+while(arr.length > 0) {  
   //! 한 화면에 보여주는 갯수 "j"  
-  // for(let j = 0; j < 5; j++) {
-    // arr.shift();
-    // if(arr.idx.length !== 0) {
-      // obj.idx.push(arr.idx.shift());
-    // }
-    // if(arr.postTitle.length !== 0) {
-      // obj.postTitle.push(arr.postTitle.shift());
-    // }
-    // if(arr.postContents.length !== 0) {
-      // obj.postContents.push(arr.postContents.shift());
-    // }
-  // }
-  // obj = {
-  //   idx: [],
-  //   postTitle: [],
-  //   postContents: [],
-  // };
-// }
+  for(let j = 0; j < displayBoard; j++) {
+    if(arr.length !== 0) {
+      arrEl = arr.shift(); // 5번 빠진걸
 
-// console.log(arr);
-// console.log(superArr);
+      obj.idx.push(arrEl[0].idx);
+      obj.postTitle.push(arrEl[0].postTitle);
+      obj.postContents.push(arrEl[0].postContents);
+    }
+    
+  }
+  // console.log(arrEl[0]);
 
-
-function pageAlgo(total, bottomSize, listSize, cursor ){
-  //total = 총 갯수
-  //bottomSize = 하단크기
-  //listSize = 화면에서 보여줄 크기
-  //cursor = 현재 나의 페이지
-
-  let totalPageSize = Math.ceil(total / listSize)  //한 화면에 보여줄 갯수에서 구한 하단 총 갯수 
-
-  let firstBottomNumber = cursor - cursor % bottomSize + 1;  //하단 최초 숫자
-  let lastBottomNumber = cursor - cursor % bottomSize + bottomSize;  //하단 마지막 숫자
-
-  if(lastBottomNumber > totalPageSize) lastBottomNumber = totalPageSize  //총 갯수보다 큰 경우 방지
-
-  return {
-      firstBottomNumber,
-      lastBottomNumber,
-      totalPageSize,
-      total,
-      bottomSize,
-      listSize,
-      cursor
+  superArr.push(obj);
+  obj = {
+    idx: [],
+    postTitle: [],
+    postContents: [],
   }
 }
-//280개의 데이터, 하단에는 20개씩, 1개화면에는 10개, 지금 나의페이지는 21
-let info = pageAlgo(boardCount, 5, 5, 11);
-// console.log(info);
+
+// console.log(obj); 
+
+// console.log(arr);
+console.log("🚀 superArr", superArr);
 
 let appendTest = document.getElementsByClassName('lastName')[0];
 var trTest = document.createElement('tr');
@@ -141,15 +109,15 @@ lastMoveBtn.className = 'lastMoveBtn';
 let pagingArr = [];
 let check = 1;
 
+//! button 출력 부분
+
 pageBtn.append(firstMoveBtn);
 pageBtn.append(leftMoveBtn);
 
 let pageNum = 0;
-let maxPage = Math.ceil(arr.length / 5);
-console.log(arr.length)
-let maxPage = arr.length;
-// 애초에 올 때 부터 짤라야 하나
-while(maxPage > pageNum) {
+console.log("🚀 maxPage", maxPage);
+
+while(superArr.length > pageNum) {
   var pBtn = document.createElement('button');
   pBtn.className = 'buttonGap'; //^^;;
   pageNum++;
@@ -179,10 +147,10 @@ superArr[0].idx.forEach((el, idx) => {
 
 })
 
-for(let i = 0; i <= 3; i++) {
+for(let i = 0; i <= maxPage; i++) {
   // console.log(i);
   document.getElementsByClassName(`button${i + 1}`)[0].addEventListener("click", function(){
-    console.log(`${i + 1}번 클릭 @@`);
+    console.log(`${i + 1}번 클릭`);
     nowPage = i + 1;
     console.log(nowPage);
     const removeAll_td = document.querySelectorAll('td'); 
@@ -264,12 +232,14 @@ function test2() {
 
 function left() {
   console.log("left");
-  console.log(nowPage);
   if(nowPage <= 1) {
     nowPage = 1;
   } else {
     nowPage--;
   }
+
+  console.log(nowPage);
+
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -295,7 +265,6 @@ function left() {
 
 function right() {
   console.log("right");
-  console.log(nowPage);
 
   if(nowPage >= superArr.length - 1) {
     nowPage = superArr.length;
@@ -303,6 +272,8 @@ function right() {
   } else {
     nowPage++;
   }
+
+  console.log(nowPage);
 
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
@@ -327,46 +298,46 @@ function right() {
   })
 }
 
-document.getElementsByClassName('firstMoveBtn')[0].addEventListener("click", function(){
-  console.log("click f");
-  const removeAll_td = document.querySelectorAll('td'); 
-  removeAll_td.forEach(function(el){
-    el.remove();
-  })
-})
+// document.getElementsByClassName('firstMoveBtn')[0].addEventListener("click", function(){
+//   console.log("click f");
+//   const removeAll_td = document.querySelectorAll('td'); 
+//   removeAll_td.forEach(function(el){
+//     el.remove();
+//   })
+// })
 
-document.getElementsByClassName('lastMoveBtn')[0].addEventListener("click", function(){
-  console.log("click l");
-  const removeAll_td = document.querySelectorAll('td'); 
-  removeAll_td.forEach(function(el){
-    el.remove();
-  })
-})
+// document.getElementsByClassName('lastMoveBtn')[0].addEventListener("click", function(){
+//   console.log("click l");
+//   const removeAll_td = document.querySelectorAll('td'); 
+//   removeAll_td.forEach(function(el){
+//     el.remove();
+//   })
+// })
 
 
 
 //-------------------------------------------------------------------------------------
-window.addEventListener('DOMContentLoaded', () => {
-    let scrollPos = 0;
-    const mainNav = document.getElementById('mainNav');
-    const headerHeight = mainNav.clientHeight;
-    window.addEventListener('scroll', function() {
-        const currentTop = document.body.getBoundingClientRect().top * -1;
-        if ( currentTop < scrollPos) {
-            // Scrolling Up
-            if (currentTop > 0 && mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-visible');
-            } else {
-                console.log(123);
-                mainNav.classList.remove('is-visible', 'is-fixed');
-            }
-        } else {
-            // Scrolling Down
-            mainNav.classList.remove(['is-visible']);
-            if (currentTop > headerHeight && !mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-fixed');
-            }
-        }
-        scrollPos = currentTop;
-    });
-})
+// window.addEventListener('DOMContentLoaded', () => {
+//     let scrollPos = 0;
+//     const mainNav = document.getElementById('mainNav');
+//     const headerHeight = mainNav.clientHeight;
+//     window.addEventListener('scroll', function() {
+//         const currentTop = document.body.getBoundingClientRect().top * -1;
+//         if ( currentTop < scrollPos) {
+//             // Scrolling Up
+//             if (currentTop > 0 && mainNav.classList.contains('is-fixed')) {
+//                 mainNav.classList.add('is-visible');
+//             } else {
+//                 console.log(123);
+//                 mainNav.classList.remove('is-visible', 'is-fixed');
+//             }
+//         } else {
+//             // Scrolling Down
+//             mainNav.classList.remove(['is-visible']);
+//             if (currentTop > headerHeight && !mainNav.classList.contains('is-fixed')) {
+//                 mainNav.classList.add('is-fixed');
+//             }
+//         }
+//         scrollPos = currentTop;
+//     });
+// })
