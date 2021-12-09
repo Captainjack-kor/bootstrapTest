@@ -5,11 +5,32 @@
 */
 
 let text = "link move test";
-let arr = {
-  idx: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-  postTitle: ["우왕 ㅋ굳ㅋ", "오징어게임", "안녕", "하이염", "방가방가", "텡", "탕탕탕", "탕탕", "apfjd", "hq", "ggg"],
-  postContents: ["123", "hi", "aaa", "cc", "bb", "ee", "gg", "124", "7766", "325", "asdadsa"],
-};
+let arr = [
+  {
+    idx: "",
+    postTitle: "",
+    postContents: "",
+  }
+]
+
+for(let i = 1; i < 10; i++) {
+  arr.push([
+    {
+      idx: `${i}`,
+      postTitle: "우왕 ㅋ굳ㅋ",
+      postContents: "123",
+    }
+  ])
+}
+
+console.log(arr);
+// console.log(arr.length);
+
+// let arr = {
+//   idx: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20","1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+//   postTitle: ["우왕 ㅋ굳ㅋ", "오징어게임", "안녕", "하이염", "방가방가", "텡", "탕탕탕", "탕탕", "apfjd", "hq", "ggg", "텡", "탕탕탕", "탕탕", "apfjd", "hq", "ggg",  "apfjd", "hq", "ggg"],
+//   postContents: ["123", "hi", "aaa", "cc", "bb", "ee", "gg", "124", "7766", "325", "asdadsa"],
+// };
 
 //버튼에 따른 필터 뿌리기... 내일 해보자
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
@@ -24,31 +45,46 @@ let obj = {
   postContents: [],
 };
 
-let superArr = [];
+
+// let arr = [
+//   {
+//     idx: "",
+//     postTitle: "",
+//     postContents: "",
+//   }
+// ]
+
+
+// for(let i = 1; i < 10; i++) {
+//   // console.log(i);
+//   console.log(arr[i][0]["idx"]);
+// }
+
 
 // for(let i = 0; i < Math.ceil(arr.idx.length / 5); i++) {
-while(arr.idx.length > 0) {    
-  for(let j = 0; j < 5; j++) {
-    if(arr.idx.length !== 0) {
-      obj.idx.push(arr.idx.shift());
-    }
-    if(arr.postTitle.length !== 0) {
-      obj.postTitle.push(arr.postTitle.shift());
-    }
-    if(arr.postContents.length !== 0) {
-      obj.postContents.push(arr.postContents.shift());
-    }
-  }
-  superArr.push(obj);
-  obj = {
-    idx: [],
-    postTitle: [],
-    postContents: [],
-  };
-}
+// while(arr.length > 0) {  
+  //! 한 화면에 보여주는 갯수 "j"  
+  // for(let j = 0; j < 5; j++) {
+    // arr.shift();
+    // if(arr.idx.length !== 0) {
+      // obj.idx.push(arr.idx.shift());
+    // }
+    // if(arr.postTitle.length !== 0) {
+      // obj.postTitle.push(arr.postTitle.shift());
+    // }
+    // if(arr.postContents.length !== 0) {
+      // obj.postContents.push(arr.postContents.shift());
+    // }
+  // }
+  // obj = {
+  //   idx: [],
+  //   postTitle: [],
+  //   postContents: [],
+  // };
+// }
 
-console.log(arr);
-console.log(superArr);
+// console.log(arr);
+// console.log(superArr);
 
 
 function pageAlgo(total, bottomSize, listSize, cursor ){
@@ -74,15 +110,10 @@ function pageAlgo(total, bottomSize, listSize, cursor ){
       cursor
   }
 }
-
 //280개의 데이터, 하단에는 20개씩, 1개화면에는 10개, 지금 나의페이지는 21
 let info = pageAlgo(boardCount, 5, 5, 11);
 // console.log(info);
 
-// var element  = document.getElementById('tr'); // assuming ul exists
-// var fragment = document.createDocumentFragment();
-
-// document.getElementsByClassName('testInfo')[0].children;
 let appendTest = document.getElementsByClassName('lastName')[0];
 var trTest = document.createElement('tr');
 
@@ -114,15 +145,13 @@ pageBtn.append(firstMoveBtn);
 pageBtn.append(leftMoveBtn);
 
 let pageNum = 0;
-// let maxPage = Math.ceil(arr.idx.length / 5);
-let maxPage = superArr.length;
+let maxPage = Math.ceil(arr.length / 5);
+console.log(arr.length)
+let maxPage = arr.length;
 // 애초에 올 때 부터 짤라야 하나
 while(maxPage > pageNum) {
   var pBtn = document.createElement('button');
   pBtn.className = 'buttonGap'; //^^;;
-  // let buttonGubun = document.getElementsByClassName('buttonGap')[1];
-  // pBtn.onclick =  test;
-  // pBtn.classList.add('buttonClick');
   pageNum++;
   pBtn.classList.add(`button${pageNum}`);
   pBtn.textContent = pageNum;
@@ -314,6 +343,9 @@ document.getElementsByClassName('lastMoveBtn')[0].addEventListener("click", func
   })
 })
 
+
+
+//-------------------------------------------------------------------------------------
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');
