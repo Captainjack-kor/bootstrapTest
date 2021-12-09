@@ -139,14 +139,24 @@ superArr[0].idx.forEach((el, idx) => {
 
 })
 
-for(let i = 1; i <= maxPage; i++) {
-  console.log(maxPage); //3
-  document.getElementsByClassName(`button${i}`)[i].addEventListener("click", function(){
-    console.log(`${i}번 클릭`);
-    const removeAllel = document.querySelectorAll('td'); 
-    removeAllel.forEach(function(el){
+for(let i = 0; i <= 3; i++) {
+  console.log(i);
+  document.getElementsByClassName(`button${i + 1}`)[0].addEventListener("click", function(){
+    console.log(`${i + 1}번 클릭 @@`);
+
+
+    const removeAll_td = document.querySelectorAll('td'); 
+    // const removeAll_tr = document.querySelectorAll('tr'); 
+    
+    removeAll_td.forEach(function(el){
       el.remove();
     })
+
+    // removeAll_tr.forEach(function(el){
+    //   el.remove();
+    // })
+
+
     superArr[i].idx.forEach((el, idx) => {
       var trTest = document.createElement('tr');
       var tdNum = document.createElement('td');
@@ -167,77 +177,6 @@ for(let i = 1; i <= maxPage; i++) {
   });
 }
 
-
-// document.getElementsByClassName('button2')[0].addEventListener("click", function(){
-//   console.log("2번")
-//   const removeAllel = document.querySelectorAll('td'); 
-//   removeAllel.forEach(function(el){
-//     el.remove();
-//   })
-//   superArr[1].idx.forEach((el, idx) => {
-//     var trTest = document.createElement('tr');
-//     var tdNum = document.createElement('td');
-//     var tdContents = document.createElement('td');
-//     var tdTitle = document.createElement('td');
-  
-//     tdNum.textContent = el;
-//     tdContents.textContent = superArr[1].postTitle[idx];
-//     tdTitle.textContent = superArr[1].postContents[idx];
-  
-//     trTest.append(tdNum);
-//     trTest.append(tdContents);
-//     trTest.append(tdTitle);
-  
-//     appendTest.append(trTest);
-  
-//   })
-
-// });
-
-// document.getElementsByClassName('button3')[0].addEventListener("click", function(){
-//   console.log("3번")
-//   const removeAllel = document.querySelectorAll('td'); 
-//   removeAllel.forEach(function(el){
-//     el.remove();
-//   })
-//   superArr[2].idx.forEach((el, idx) => {
-//     var trTest = document.createElement('tr');
-//     var tdNum = document.createElement('td');
-//     var tdContents = document.createElement('td');
-//     var tdTitle = document.createElement('td');
-  
-//     tdNum.textContent = el;
-//     tdContents.textContent = superArr[2].postTitle[idx];
-//     tdTitle.textContent = superArr[2].postContents[idx];
-  
-//     trTest.append(tdNum);
-//     trTest.append(tdContents);
-//     trTest.append(tdTitle);
-  
-//     appendTest.append(trTest);
-  
-//   })
-// });
-
-
-
-// arr.idx.forEach((el, idx) => {
-//   var trTest = document.createElement('tr');
-//   var tdNum = document.createElement('td');
-//   var tdContents = document.createElement('td');
-//   var tdTitle = document.createElement('td');
-
-//   tdNum.textContent = el;
-//   tdContents.textContent = arr.postTitle[idx];
-//   tdTitle.textContent = arr.postContents[idx];
-
-//   trTest.append(tdNum);
-//   trTest.append(tdContents);
-//   trTest.append(tdTitle);
-
-//   appendTest.append(trTest);
-
-// })
 
 window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
