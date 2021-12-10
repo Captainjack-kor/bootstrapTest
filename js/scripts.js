@@ -25,7 +25,6 @@ for(let i = 1; i < _page; i++) {
   ])
 }
 
-// console.log(arr);
 
 //버튼에 따른 필터 뿌리기... 내일 해보자
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
@@ -34,8 +33,6 @@ console.log(boardCount);
 let nowPage = 1;
 
 document.getElementsByClassName('mainTitle')[0].innerText = text;
-
-// for(let i = 0; i < Math.ceil(arr.idx.length / 5); i++) {
 
 arr.shift(); //초기 하나 뺴주기
 
@@ -63,8 +60,6 @@ while(arr.length > 0) {
     }
     
   }
-  // console.log(arrEl[0]);
-
   superArr.push(obj);
   obj = {
     idx: [],
@@ -73,9 +68,6 @@ while(arr.length > 0) {
   }
 }
 
-// console.log(obj); 
-
-// console.log(arr);
 console.log("🚀 superArr", superArr);
 
 let appendTest = document.getElementsByClassName('lastName')[0];
@@ -117,20 +109,12 @@ let buttonArr = [];
 
 console.log(superArr);
 while(superArr.length > pageNum) {
-  // if(pageNum % displayButtonNum !== 0) { 
-  // for(let i = 0; i < displayButtonNum; i++) {
-      var pBtn = document.createElement('button');
-      pBtn.className = 'buttonGap'; //^^;;
-      pageNum++;
-      pBtn.classList.add(`button${pageNum}`);
-      pBtn.textContent = pageNum;
-      // if(pageNum <= 5) {
-
-      pageBtn.append(pBtn);
-        // paging_button_gubun(nowPage);
-      // }
-    
-  // }
+  var pBtn = document.createElement('button');
+  pBtn.className = 'buttonGap'; //^^;;
+  pageNum++;
+  pBtn.classList.add(`button${pageNum}`);
+  pBtn.textContent = pageNum;
+  pageBtn.append(pBtn);
 }
   const removeAll_button = document.getElementsByClassName('buttonGap');
 
@@ -257,13 +241,11 @@ for(let i = 0; i <= maxPage; i++) {
     paging_button_gubun(nowPage);
     setButtonColor(nowPage);
 
-    // var target = document.getElementsByClassName(`button${i + 1}`)[0];
-    // target.style.backgroundColor = "red";
-
     const removeAll_td = document.querySelectorAll('td'); 
     removeAll_td.forEach(function(el){
       el.remove();
     })
+
     superArr[i].idx.forEach((el, idx) => {
       var trTest = document.createElement('tr');
       var tdNum = document.createElement('td');
@@ -342,8 +324,6 @@ function lastMV() {
   paging_button_gubun(nowPage);
   setButtonColor(superArr.length);
   console.log(nowPage);
-
-
 }
 
 function left() {
