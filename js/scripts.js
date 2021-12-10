@@ -31,7 +31,7 @@ for(let i = 1; i < _page; i++) {
 let boardCount = document.getElementsByClassName('lastName')[0].childElementCount;
 console.log(boardCount);
 
-let nowPage = 0;
+let nowPage = 1;
 
 document.getElementsByClassName('mainTitle')[0].innerText = text;
 
@@ -48,8 +48,8 @@ let obj = {
   postContents: [],
 }
 
-let displayBoardNum = 4; //! 한 화면에 보여주는 게시글 갯수
-let displayButtonNum = 10; //! 한 화면에 보여주는 하단 버튼의 갯수
+let displayBoardNum = 10; //! 한 화면에 보여주는 게시글 갯수
+let displayButtonNum = 5; //! 한 화면에 보여주는 하단 버튼의 갯수
 let maxPage = Math.ceil(_page / displayBoardNum); 
 
 while(arr.length > 0) {  
@@ -160,6 +160,7 @@ while(superArr.length > pageNum) {
 
 setTimeout(function() {
   paging_button_gubun(1);
+  setButtonColor(1);
  }, 0);
 
 let paging_button_gubun = async (nowPage) => {
@@ -231,13 +232,34 @@ superArr[0].idx.forEach((el, idx) => {
 
 })
 
+function setButtonColor(num) {
+  for(let i = 0; i <= maxPage; i++) {
+    var init = document.getElementsByClassName(`button${i}`)[0];
+    if(init) {
+      init.style.backgroundColor = "yellow";
+    }
+    
+  }
+
+  var setTargetColor = document.getElementsByClassName(`button${num}`)[0];
+  setTargetColor.style.backgroundColor = "red";
+}
+
 for(let i = 0; i <= maxPage; i++) {
-  // console.log(i);
+
   document.getElementsByClassName(`button${i + 1}`)[0].addEventListener("click", function(){
+    let init = document.getElementsByClassName(`button${i + 1}`)[0];
+    init.style.backgroundColor = "yellow";
+
     console.log(`${i + 1}번 클릭`);
     nowPage = i + 1;
     console.log(nowPage);
     paging_button_gubun(nowPage);
+    setButtonColor(nowPage);
+
+    // var target = document.getElementsByClassName(`button${i + 1}`)[0];
+    // target.style.backgroundColor = "red";
+
     const removeAll_td = document.querySelectorAll('td'); 
     removeAll_td.forEach(function(el){
       el.remove();
@@ -260,9 +282,11 @@ for(let i = 0; i <= maxPage; i++) {
     
     })
   });
+  
 }
 
 function firstMV() {
+
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -286,11 +310,12 @@ function firstMV() {
   })
   nowPage = 1;
   paging_button_gubun(nowPage);
-
+  setButtonColor(1);
   console.log(nowPage);
 }
 
 function lastMV() {
+
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -313,10 +338,11 @@ function lastMV() {
     appendTest.append(trTest);
   
   })
-  nowPage = superArr.length - 1;
+  nowPage = superArr.length;
   paging_button_gubun(nowPage);
-
+  setButtonColor(superArr.length);
   console.log(nowPage);
+
 
 }
 
@@ -329,6 +355,7 @@ function left() {
 
   console.log(nowPage);
   paging_button_gubun(nowPage);
+  setButtonColor(nowPage);
 
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
@@ -365,6 +392,7 @@ function right() {
   console.log(nowPage);
 
   paging_button_gubun(nowPage);
+  setButtonColor(nowPage);
 
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
