@@ -6,7 +6,7 @@
 
 
 let text = "link move test";
-let _page = 80;
+let _page = 200;
 let arr = [
   {
     idx: "",
@@ -19,8 +19,8 @@ for(let i = 1; i < _page; i++) {
   arr.push([
     {
       idx: `${i}`,
-      postTitle: "타이틀",
-      postContents: "내용",
+      postTitle: `타이틀${i}`,
+      postContents: `내용${i}`,
     }
   ])
 }
@@ -48,9 +48,9 @@ let obj = {
   postContents: [],
 }
 
-let displayBoardNum = 10; //! 한 화면에 보여주는 게시글 갯수
-let displayButtonNum = 5; //! 한 화면에 보여주는 하단 버튼의 갯수
-let maxPage = Math.ceil(_page / 5); 
+let displayBoardNum = 4; //! 한 화면에 보여주는 게시글 갯수
+let displayButtonNum = 10; //! 한 화면에 보여주는 하단 버튼의 갯수
+let maxPage = Math.ceil(_page / displayBoardNum); 
 
 while(arr.length > 0) {  
   for(let j = 0; j < displayBoardNum; j++) {
@@ -115,6 +115,7 @@ pageBtnLArrow.append(leftMoveBtn);
 let pageNum = 0;
 let buttonArr = [];
 
+console.log(superArr);
 while(superArr.length > pageNum) {
   // if(pageNum % displayButtonNum !== 0) { 
   // for(let i = 0; i < displayButtonNum; i++) {
@@ -132,23 +133,23 @@ while(superArr.length > pageNum) {
   // }
 }
   const removeAll_button = document.getElementsByClassName('buttonGap');
-  // removeAll_button.forEach(function(el){
-  //   el.remove();
-  // })
 
   let tempArr = [];
-  for(let i = 0; i <removeAll_button.length; i++) {
+
+  for(let i = 0; i < removeAll_button.length; i++) {
     tempArr.push(removeAll_button[i]);
   }
+
   let newArr = [];
   while(tempArr.length > 0) {
     let head = tempArr.shift();
-    if(newArr.length !== displayButtonNum) {
+    if(newArr.length !== displayButtonNum - 1) {
       newArr.push(head);
       if(tempArr.length === 0) {
         buttonArr.push(newArr);
       }
     } else {
+      newArr.push(head);
       buttonArr.push(newArr);
       newArr = [];
     }
@@ -162,13 +163,13 @@ setTimeout(function() {
  }, 0);
 
 let paging_button_gubun = async (nowPage) => {
-  if(nowPage <= 5) {
+  if(nowPage <= displayButtonNum) {
     const removeAll_button = document.getElementsByClassName('buttonGap');
     let tempArr = [];
     for(let i = 0; i <removeAll_button.length; i++) {
       tempArr.push(removeAll_button[i]);
     }
-    console.log(tempArr);
+    // console.log(tempArr);
     tempArr.forEach(function(el){
       el.remove();
     })
@@ -177,18 +178,20 @@ let paging_button_gubun = async (nowPage) => {
       pageBtn.append(buttonArr[0][i]);
     }
   } else {
+    let setPage = Math.ceil(nowPage / displayButtonNum);
     const removeAll_button = document.getElementsByClassName('buttonGap');
     let tempArr = [];
     for(let i = 0; i <removeAll_button.length; i++) {
       tempArr.push(removeAll_button[i]);
     }
-    console.log(tempArr);
     tempArr.forEach(function(el){
       el.remove();
     })
 
-    for(let i = 0; i < 2; i++) {
-      pageBtn.append(buttonArr[1][i]);
+    for(let i = 0; i < displayButtonNum; i++) {
+      if((buttonArr[setPage - 1][i])) {
+        pageBtn.append(buttonArr[setPage - 1][i]);
+      }
     }
   }
 
@@ -260,7 +263,6 @@ for(let i = 0; i <= maxPage; i++) {
 }
 
 function firstMV() {
-  console.log("처음으로 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -289,7 +291,6 @@ function firstMV() {
 }
 
 function lastMV() {
-  console.log("마지막 이동");
   const removeAll_td = document.querySelectorAll('td'); 
   removeAll_td.forEach(function(el){
     el.remove();
@@ -320,7 +321,6 @@ function lastMV() {
 }
 
 function left() {
-  console.log("left");
   if(nowPage <= 1) {
     nowPage = 1;
   } else {
@@ -355,7 +355,6 @@ function left() {
 }
 
 function right() {
-  console.log("right");
   if(nowPage >= superArr.length - 1) {
     nowPage = superArr.length;
     // console.log(nowPage)
