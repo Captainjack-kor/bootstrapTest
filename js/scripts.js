@@ -4,6 +4,7 @@
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
 */
 
+
 let text = "link move test";
 let _page = 80;
 let arr = [
@@ -156,9 +157,12 @@ while(superArr.length > pageNum) {
 
 // console.log(tempArr);
 
-function paging_button_gubun(nowPage) {
+setTimeout(function() {
+  paging_button_gubun(1);
+ }, 0);
+
+let paging_button_gubun = async (nowPage) => {
   if(nowPage <= 5) {
-    console.log("5보다 작음");
     const removeAll_button = document.getElementsByClassName('buttonGap');
     let tempArr = [];
     for(let i = 0; i <removeAll_button.length; i++) {
@@ -173,8 +177,6 @@ function paging_button_gubun(nowPage) {
       pageBtn.append(buttonArr[0][i]);
     }
   } else {
-
-    console.log("5보다 작음");
     const removeAll_button = document.getElementsByClassName('buttonGap');
     let tempArr = [];
     for(let i = 0; i <removeAll_button.length; i++) {
@@ -189,6 +191,7 @@ function paging_button_gubun(nowPage) {
       pageBtn.append(buttonArr[1][i]);
     }
   }
+
 }
 
 pageBtnRArrow.append(rightMoveBtn);
@@ -430,3 +433,5 @@ function right() {
 //         scrollPos = currentTop;
 //     });
 // })
+
+
