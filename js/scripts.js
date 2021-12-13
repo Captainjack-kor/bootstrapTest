@@ -72,7 +72,6 @@ console.log("🚀 superArr", superArr);
 
 let appendTest = document.getElementsByClassName('lastName')[0];
 var trTest = document.createElement('tr');
-
 let pageBtn = document.getElementsByClassName('pageBtn')[0];
 let pageBtnLArrow = document.getElementsByClassName('pageBtnLArrow')[0];
 let pageBtnRArrow = document.getElementsByClassName('pageBtnRArrow')[0];
@@ -230,7 +229,6 @@ function setButtonColor(num) {
 }
 
 for(let i = 0; i <= maxPage; i++) {
-
   document.getElementsByClassName(`button${i + 1}`)[0].addEventListener("click", function(){
     let init = document.getElementsByClassName(`button${i + 1}`)[0];
     init.style.backgroundColor = "yellow";
